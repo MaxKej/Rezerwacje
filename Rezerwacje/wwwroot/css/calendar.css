@@ -1,0 +1,17 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: 100px repeat(7, 1fr);
+    border: 1px solid #ccc;
+}
+
+.time-slot {
+    border: 1px solid #ccc;
+    padding: 5px;
+}

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+<button id="loadCategories" onclick="fetchAllCategories()">Load Categories</button>
+<div id="categoryList"></div>
+
+<button id="loadBookings" onclick="fetchAllBookings()">Load Bookings</button>
+<div id="bookingList"></div>
+
+<button id="loadUserBookings" onclick="getAllUserBookings()">Load User Bookings</button>
+<div id="userBookingsList"></div>
+
+<!-- Your HTML button in your .cshtml file with an inline onclick function -->
+<button id="getCategoryButton" onclick="getCategoryByID()">Get Category</button>
+<button id="addCategoryButton" onclick="saveCategory()">Save Category</button>
+<button id="deleteCategoryButton" onclick="deleteCategory()">Delete Category</button>
+<!-- Display area for the retrieved category -->
+<div id="categoryDisplay" style="display: none;">
+    <p><strong>Category ID:</strong> <span id="categoryId"></span></p>
+    <p><strong>Category Name:</strong> <span id="categoryName"></span></p>
+</div>
+
+<button id="getBookingButton" onclick="getBooking()">Get Booking</button>
+
+<!-- Display area for the retrieved category -->
+<div id="bookingDisplay" style="display: none;">
+    <p><strong>Booking ID:</strong> <span id="bookingId"></span></p>
+    <p><strong>Booking Name:</strong> <span id="bookingName"></span></p>
+    <p><strong>Booking Category ID:</strong> <span id="bookingCategoryID"></span></p>
+</div>
+
+<button id="fetchUserDataButton" onclick="userData()">Fetch User Data</button>
+<div>
+    <p>User ID: <span id="userId"></span></p>
+    <p>Username: <span id="username"></span></p>
+</div>

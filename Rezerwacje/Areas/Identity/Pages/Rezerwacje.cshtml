@@ -1,0 +1,117 @@
+﻿@page
+@model Rezerwacje.Areas.Identity.Pages.RezerwacjeModel
+@{
+}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px; /* Gap between grid items to create borders */
+            background-color: white;
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .day-name, .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .column {
+            grid-column: span 1; /* Each column spans a single column */
+            grid-row: 2; /* Placed in the second row */
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking
+        {
+            position: relative;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            height: 60px;
+        }
+
+        .booking:hover {
+            z-index: 2; /* Większy z-index po najechaniu */
+            height: 100px; /* Większa wysokość po najechaniu */
+        }
+
+        .booking:hover .tooltip-text {
+            display: block; /* Wyświetl niewidzialny tekst po najechaniu */
+        }
+
+        .tooltip-text {
+            display: none;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div id="userBookingsList"></div>
+
+    <div class="grid-container">
+        <div class="day-name">Poniedziałek</div>
+        <div class="day-name">Wtorek</div>
+        <div class="day-name">Środa</div>
+        <div class="day-name">Czwartek</div>
+        <div class="day-name">Piątek</div>
+        <div class="day-name">Sobota</div>
+        <div class="day-name">Niedziela</div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+    </div>
+
+    <button class="showButton" onclick="showBookingForm()">Dodaj rezerwację</button>
+
+    <form id="bookingForm" method="post" style="display: none;">
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="beginOfBooking">Begin of Booking</label>
+            <input type="datetime-local" class="form-control" id="beginOfBooking" />
+        </div>
+        <div class="form-group">
+            <label for="endOfBooking">End of Booking</label>
+            <input type="datetime-local" class="form-control" id="endOfBooking" />
+        </div>
+
+        <button type="button" class="saveButton" onclick="saveUserBooking()">Save</button>
+    </form>
+
+
+
+    <script>
+        function showBookingForm() {
+            const bookingForm = document.getElementById("bookingForm");
+            if (bookingForm.style.display === "block")
+                bookingForm.style.display = "none";
+            else
+                bookingForm.style.display = "block";
+        }
+    </script>
+</body>
+</html>
+
