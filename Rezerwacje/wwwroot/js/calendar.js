@@ -1,26 +1,51 @@
-﻿async function getAllUserBookings() {
+﻿async function userData() {
+    try {
+        const userIdResponse = await fetch("/api/user/get/userid");
+        const usernameResponse = await fetch("/api/user/get/username");
+
+        if (userIdResponse.ok && usernameResponse.ok) {
+            const userId = await userIdResponse.text();
+            const username = await usernameResponse.text();
+
+            console.log("User ID:", userId);
+            console.log("Username:", username);
+            return username;
+        } else {
+            console.error("Error fetching user information.");
+            return null;
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return null;
+    }
+}
+
+async function getAllUserBookings() {
     try {
         const response = await fetch("/api/userbooking/getAll");
         if (response.ok) {
             const userBookings = await response.json();
-            displayUserBookings(userBookings);
-            addUserBookings(userBookings);
+            return userBookings;
         } else {
             console.error("Error loading user bookings:", response.statusText);
+            return null;
         }
     } catch (error) {
         console.error("Error fetching user bookings:", error);
+        return null;
     }
 }
 
-function displayUserBookings(userBookings) {
+function displayUserBookings(userBookings, userName) {
     const userBookingsList = document.getElementById("userBookingsList");
     userBookingsList.innerHTML = "";
     userBookings.forEach(userBooking => {
-        const userBookingItem = document.createElement("div");
-        userBookingItem.innerText = `ID: ${userBooking.id}, Name: ${userBooking.userName}, Description: ${userBooking.description}, Start: ${userBooking.beginOfBooking}, End: ${userBooking.endOfBooking}`;
-        displayDate(userBooking.beginOfBooking);
-        userBookingsList.appendChild(userBookingItem);
+        if (userBooking.userName === userName) {
+            const userBookingItem = document.createElement("div");
+            userBookingItem.innerText = `ID: ${userBooking.id}, Name: ${userBooking.userName}, Description: ${userBooking.description}, Start: ${userBooking.beginOfBooking}, End: ${userBooking.endOfBooking}`;
+            displayDate(userBooking.beginOfBooking);
+            userBookingsList.appendChild(userBookingItem);
+        }
     });
 }
 
@@ -42,7 +67,7 @@ function addUserBookings(userBookings) {
 
         const bookingDiv = document.createElement("div");
         bookingDiv.classList.add("booking");
-        bookingDiv.innerHTML = `${hours_s}:${minutes_s} - ${hours_e}:${minutes_e} <br> ${booking.username}`;
+        bookingDiv.innerHTML = `${hours_s}:${minutes_s} - ${hours_e}:${minutes_e} <br> ${booking.userName}`;
 
         const tooltipText = document.createElement("p");
         tooltipText.classList.add("tooltip-text");
@@ -57,6 +82,89 @@ function addUserBookings(userBookings) {
     });
 }
 
+async function saveUserBooking() {
+    const usernameResponse = await fetch("/api/user/get/username");
+    const user = await usernameResponse.text();
+
+    const description = (document.getElementById("description")).value;
+    const beginOfBooking = (document.getElementById("beginOfBooking")).value;
+    const endOfBooking = (document.getElementById("endOfBooking")).value;
+
+    if (beginOfBooking > endOfBooking) {
+        document.getElementById("result").textContent = "Druga data nie jest późniejsza.";
+        return;
+    }
+
+    collision = await Collision(new Date(beginOfBooking), new Date(endOfBooking));
+    if (collision) {
+        document.getElementById("result").textContent = "Termin niedostępny!";
+        return;
+    }
+
+    const userBooking = {
+        bookingId: 3,
+        userName: user,
+        description: description,
+        beginOfBooking: new Date(beginOfBooking),
+        endOfBooking: new Date(endOfBooking)
+    };
+
+    try {
+        const response = await fetch("/api/userbooking/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userBooking),
+        });
+
+        if (response.ok) {
+            console.log("User booking saved successfully!");
+            // You can perform additional actions here after the category is saved
+        } else {
+            console.error("Failed to save user booking");
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
+
+}
+
+async function Collision(beginOfBooking, endOfBooking) {
+    const existingBookings = await getAllUserBookings();
+
+    const isFullyContained = existingBookings.some(booking => {
+        const existingBegin = new Date(booking.beginOfBooking);
+        const existingEnd = new Date(booking.endOfBooking);
+
+        return (
+            existingBegin >= beginOfBooking && existingEnd <= endOfBooking
+        );
+    });
+
+    if (isFullyContained)
+        return true;
+
+    const isCollisionAtStart = existingBookings.some(booking => {
+        const existingBegin = new Date(booking.beginOfBooking);
+        const existingEnd = new Date(booking.endOfBooking);
+        return beginOfBooking >= existingBegin && beginOfBooking < existingEnd;
+    });
+
+    if (isCollisionAtStart)
+        return true;
+
+    const isCollisionAtEnd = existingBookings.some(booking => {
+        const existingBegin = new Date(booking.beginOfBooking);
+        const existingEnd = new Date(booking.endOfBooking);
+        return endOfBooking > existingBegin && endOfBooking <= existingEnd;
+    });
+
+    if (isCollisionAtEnd)
+        return true;
+
+    return false;
+}
 
 function displayDate(dateString) {
     const dateObj = new Date(dateString);
@@ -76,6 +184,11 @@ function displayDate(dateString) {
     console.log(`Czas: ${hours}:${minutes}`);
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    getAllUserBookings();
-});
+function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Miesiące są numerowane od 0 do 11
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+}
+
+

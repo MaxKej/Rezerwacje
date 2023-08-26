@@ -2,89 +2,67 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-async function userData() {
-    try {
-        const userIdResponse = await fetch("/api/user/get/userid");
-        const usernameResponse = await fetch("/api/user/get/username");
 
-        if (userIdResponse.ok && usernameResponse.ok) {
-            const userId = await userIdResponse.text();
-            const username = await usernameResponse.text();
+//async function saveUserBooking() {
+//    const usernameResponse = await fetch("/api/user/get/username");
+//    const user = await usernameResponse.text();
 
-            console.log("User ID:", userId);
-            console.log("Username:", username);
+//    const description = (document.getElementById("description")).value;
+//    const beginOfBooking = (document.getElementById("beginOfBooking")).value;
+//    const endOfBooking = (document.getElementById("endOfBooking")).value;
 
-            // Now you can display the values in your HTML or update your UI
-            document.getElementById("userId").textContent = userId;
-            document.getElementById("username").textContent = username;
-        } else {
-            console.error("Error fetching user information.");
-        }
-    } catch (error) {
-        console.error("An error occurred:", error);
-    }
-}
+//    const userBooking = {
+//        bookingId: 3,
+//        userName: user,
+//        description: description,
+//        beginOfBooking: new Date(beginOfBooking),
+//        endOfBooking: new Date(endOfBooking)
+//    };
 
-async function saveUserBooking() {
-    const usernameResponse = await fetch("/api/user/get/username");
-    const user = await usernameResponse.text();
+//    try {
+//        const response = await fetch("/api/userbooking/save", {
+//            method: "POST",
+//            headers: {
+//                "Content-Type": "application/json",
+//            },
+//            body: JSON.stringify(userBooking),
+//        });
 
-    const description = (document.getElementById("description")).value;
-    const beginOfBooking = (document.getElementById("beginOfBooking")).value;
-    const endOfBooking = (document.getElementById("endOfBooking")).value;
+//        if (response.ok) {
+//            console.log("User booking saved successfully!");
+//            // You can perform additional actions here after the category is saved
+//        } else {
+//            console.error("Failed to save user booking");
+//        }
+//    } catch (error) {
+//        console.error("An error occurred:", error);
+//    }
 
-    const userBooking = {
-        bookingId: 3,
-        userName: user,
-        description: description,
-        beginOfBooking: new Date(beginOfBooking),
-        endOfBooking: new Date(endOfBooking)
-    };
+//}
 
-    try {
-        const response = await fetch("/api/userbooking/save", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userBooking),
-        });
+//async function getAllUserBookings() {
+//    try {
+//        const response = await fetch("/api/userbooking/getAll");
+//        if (response.ok) {
+//            const userBookings = await response.json();
+//            displayUserBookings(userBookings);
+//        } else {
+//            console.error("Error loading categories:", response.statusText);
+//        }
+//    } catch (error) {
+//        console.error("Error fetching categories:", error);
+//    }
+//}
 
-        if (response.ok) {
-            console.log("User booking saved successfully!");
-            // You can perform additional actions here after the category is saved
-        } else {
-            console.error("Failed to save user booking");
-        }
-    } catch (error) {
-        console.error("An error occurred:", error);
-    }
-
-}
-
-async function getAllUserBookings() {
-    try {
-        const response = await fetch("/api/userbooking/getAll");
-        if (response.ok) {
-            const userBookings = await response.json();
-            displayUserBookings(userBookings);
-        } else {
-            console.error("Error loading categories:", response.statusText);
-        }
-    } catch (error) {
-        console.error("Error fetching categories:", error);
-    }
-}
-
-function displayUserBookings(userBookings) {
-    const userBookingsList = document.getElementById("userBookingsList");
-    userBookingsList.innerHTML = "";
-    userBookings.forEach(userBooking => {
-        const userBookingItem = document.createElement("div");
-        userBookingItem.innerText = `ID: ${userBooking.id}, Name: ${userBooking.userName}, Description: ${userBooking.description}, Start: ${userBooking.beginOfBooking}, End: ${userBooking.endOfBooking}`;
-        userBookingsList.appendChild(userBookingItem);
-    });
-}
+//function displayUserBookings(userBookings) {
+//    const userBookingsList = document.getElementById("userBookingsList");
+//    userBookingsList.innerHTML = "";
+//    userBookings.forEach(userBooking => {
+//        const userBookingItem = document.createElement("div");
+//        userBookingItem.innerText = `ID: ${userBooking.id}, Name: ${userBooking.userName}, Description: ${userBooking.description}, Start: ${userBooking.beginOfBooking}, End: ${userBooking.endOfBooking}`;
+//        userBookingsList.appendChild(userBookingItem);
+//    });
+//}
 
 
 async function saveCategory() {

@@ -1,6 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+    </style>
+</head>
+<body>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -14,7 +26,6 @@
 <button id="loadBookings" onclick="fetchAllBookings()">Load Bookings</button>
 <div id="bookingList"></div>
 
-<button id="loadUserBookings" onclick="getAllUserBookings()">Load User Bookings</button>
 <div id="userBookingsList"></div>
 
 <!-- Your HTML button in your .cshtml file with an inline onclick function -->
@@ -36,8 +47,19 @@
     <p><strong>Booking Category ID:</strong> <span id="bookingCategoryID"></span></p>
 </div>
 
-<button id="fetchUserDataButton" onclick="userData()">Fetch User Data</button>
+@*<button id="fetchUserDataButton" onclick="userData()">Fetch User Data</button>
 <div>
     <p>User ID: <span id="userId"></span></p>
     <p>Username: <span id="username"></span></p>
 </div>
+*@
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async (event) => {
+            let userBookings = await getAllUserBookings();
+            let userName = await userData();
+            displayUserBookings(userBookings, userName);
+        });
+    </script>
+</body>
+</html>

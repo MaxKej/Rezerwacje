@@ -7531,23 +7531,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\4maxk\\.nuget\\packages\\": {},
+    "C:\\Users\\4maxk_3rlm3fs\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\4maxk\\Desktop\\Projekt\\Model\\Model.csproj",
+      "projectUniqueName": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj",
       "projectName": "Model",
-      "projectPath": "C:\\Users\\4maxk\\Desktop\\Projekt\\Model\\Model.csproj",
-      "packagesPath": "C:\\Users\\4maxk\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\4maxk\\Desktop\\Projekt\\Model\\obj\\",
+      "projectPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj",
+      "packagesPath": "C:\\Users\\4maxk_3rlm3fs\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\4maxk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\4maxk_3rlm3fs\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

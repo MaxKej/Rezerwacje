@@ -9,6 +9,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
 
+        #date-container
+        {
+            position: relative;
+            display: flex;
+            height: 40px;
+            width: 400px;
+            border: 1px solid darkgrey;
+        }
+
+        #daty
+        {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .arrow {
+            position: absolute;
+            transform: translateY(-50%);
+            font-size: 15px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .arrow_left {
+            left: 5px;
+            top: 20px;
+        }
+
+        .arrow_right {
+            right: 5px;
+            top: 20px;
+        }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -58,21 +95,28 @@
             display: none;
         }
 
-
+        #result
+        {
+            color: red;
+        }
 
     </style>
 </head>
 <body>
-    <div id="userBookingsList"></div>
+    <div id="date-container">
+        <div id="daty"></div>
+        <div id="arrow_left" class="arrow arrow_left">&#9001;</div>
+        <div id="arrow_right" class="arrow arrow_right">&#9002;</div>
+    </div>
 
     <div class="grid-container">
+        <div class="day-name">Niedziela</div>
         <div class="day-name">Poniedziałek</div>
         <div class="day-name">Wtorek</div>
         <div class="day-name">Środa</div>
         <div class="day-name">Czwartek</div>
         <div class="day-name">Piątek</div>
         <div class="day-name">Sobota</div>
-        <div class="day-name">Niedziela</div>
         <div class="column"></div>
         <div class="column"></div>
         <div class="column"></div>
@@ -99,11 +143,28 @@
         </div>
 
         <button type="button" class="saveButton" onclick="saveUserBooking()">Save</button>
+        <p id="result"></p>
     </form>
 
 
 
     <script>
+        document.addEventListener("DOMContentLoaded", async (event) => {
+            let userBookings = await getAllUserBookings();
+            addUserBookings(userBookings);
+        });
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+
+            let date_today = new Date();
+            let startDate = new Date(date_today.setDate(date_today.getDate() - date_today.getDay()));
+            let endDate = new Date(date_today.setDate(date_today.getDate() - date_today.getDay() + 6));
+
+            const divElement = document.getElementById("daty");
+            divElement.textContent = formatDate(startDate) + " - " + formatDate(endDate);
+
+        });
+
         function showBookingForm() {
             const bookingForm = document.getElementById("bookingForm");
             if (bookingForm.style.display === "block")
