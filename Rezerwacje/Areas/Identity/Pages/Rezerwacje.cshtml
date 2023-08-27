@@ -150,28 +150,15 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async (event) => {
-            let userBookings = await getAllUserBookings();
-            addUserBookings(userBookings);
+            userBookings = await getAllUserBookings();
+            startDate = getStartOfWeek(date_today, startDayOfWeek);
+            endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + 6);
+
+            loadCurrentWeek(startDate, endDate, date_today);
+            addUserBookings(userBookings, startDate, endDate);
         });
 
-        document.addEventListener("DOMContentLoaded", (event) => {
-
-            let date_today = new Date();
-            let startDate = new Date(date_today.setDate(date_today.getDate() - date_today.getDay()));
-            let endDate = new Date(date_today.setDate(date_today.getDate() - date_today.getDay() + 6));
-
-            const divElement = document.getElementById("daty");
-            divElement.textContent = formatDate(startDate) + " - " + formatDate(endDate);
-
-        });
-
-        function showBookingForm() {
-            const bookingForm = document.getElementById("bookingForm");
-            if (bookingForm.style.display === "block")
-                bookingForm.style.display = "none";
-            else
-                bookingForm.style.display = "block";
-        }
     </script>
 </body>
 </html>
