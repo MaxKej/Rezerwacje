@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="~/Rezerwacje.styles.css" asp-append-version="true" />
 </head>
 <body>
-@*    <div id="sidebar">
-        <partial name="_Sidebar" /> <!-- Use the <partial> Tag Helper here -->
-    </div>*@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -27,6 +24,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Prywatność</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Categories">Zarządzaj</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Rezerwacje">Rezerwacje</a>

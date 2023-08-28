@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj": {}
+    "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj": {}
   },
   "projects": {
-    "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj": {
+    "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj",
+        "projectUniqueName": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\Model.csproj",
         "projectName": "Model",
-        "projectPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj",
-        "packagesPath": "C:\\Users\\4maxk_3rlm3fs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\obj\\",
+        "projectPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\Model.csproj",
+        "packagesPath": "C:\\Users\\4maxk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\4maxk_3rlm3fs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\4maxk\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -91,20 +91,20 @@
         }
       }
     },
-    "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Repository\\Repository.csproj": {
+    "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\4maxk_3rlm3fs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Repository\\obj\\",
+        "projectPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\4maxk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\4maxk_3rlm3fs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\4maxk\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -119,8 +119,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj": {
-                "projectPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj"
+              "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\Model.csproj": {
+                "projectPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\Model.csproj"
               }
             }
           }
@@ -174,20 +174,20 @@
         }
       }
     },
-    "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj": {
+    "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj",
+        "projectUniqueName": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj",
         "projectName": "Rezerwacje",
-        "projectPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj",
-        "packagesPath": "C:\\Users\\4maxk_3rlm3fs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Rezerwacje\\obj\\",
+        "projectPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Rezerwacje\\Rezerwacje.csproj",
+        "packagesPath": "C:\\Users\\4maxk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Rezerwacje\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\4maxk_3rlm3fs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\4maxk\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -203,11 +203,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj": {
-                "projectPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Model\\Model.csproj"
+              "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\Model.csproj": {
+                "projectPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Model\\Model.csproj"
               },
-              "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\4maxk_3rlm3fs\\Desktop\\Github\\Rezerwacje\\Repository\\Repository.csproj"
+              "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\4maxk\\Desktop\\GitHub\\Rezerwacje\\Repository\\Repository.csproj"
               }
             }
           }

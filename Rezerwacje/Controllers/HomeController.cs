@@ -25,6 +25,13 @@ namespace Rezerwacje.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult Categories()
+        {
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
