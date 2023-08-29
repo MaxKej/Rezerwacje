@@ -4,5 +4,136 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Categories</h1>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #bookingList {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Trzy kolumny */
+            gap: 10px; /* Odstępy między kafelkami */
+        }
 
+        #categoryList {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Trzy kolumny */
+            gap: 10px; /* Odstępy między kafelkami */
+        }
+
+        .kafelka {
+            border: 1px solid lightgray;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .kafelka:hover {
+            cursor: pointer;
+            border-color: black;
+        }
+
+        #bookingName {
+            width: 300px;
+        }
+
+        #categoryName {
+            width: 200px;
+        }
+
+        /* Styl dla okienka dialogowego (modal) */
+        .modal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 100%; /* Maksymalna szerokość modalu */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            /* Styl dla przycisków modalu */
+        .modal button {
+            margin: 10px;
+            padding: 8px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Styl dla tła modalu */
+        .modal-background {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+    </style>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", async (event) => {
+            let bookings = await fetchAllBookings();
+            let categories = await fetchAllCategories();
+            displayBookings(bookings);
+            displayCategories(categories);
+        });
+    </script>
+</head>
+<body>
+    <h2>Typy rezerwacji</h2>
+
+    <div id="bookingList"></div>
+
+    <button class="showButton" onclick="showBookingForm()">Dodaj rezerwację</button>
+    <form id="bookingCreationForm" method="post" style="display: none;">
+        <div class="form-group" id="nazwa">
+            <label for="bookingName">Nazwa</label>
+            <textarea class="form-control" id="bookingName"></textarea>
+        </div>
+
+        <button type="button" class="saveButton" onclick="saveBooking()">Utwórz</button>
+        <p id="bookingResult"></p>
+    </form>
+
+
+    <h2>Kategorie rezerwacji</h2>
+
+    <div id="categoryList"></div>
+
+    <button class="showButton" onclick="showCategoryForm()">Dodaj rezerwację</button>
+    <form id="categoryCreationForm" method="post" style="display: none;">
+        <div class="form-group" id="nazwa">
+            <label for="categoryName">Nazwa</label>
+            <textarea class="form-control" id="categoryName"></textarea>
+        </div>
+
+        <button type="button" class="saveButton" onclick="saveCategory()">Utwórz</button>
+        <p id="categoryResult"></p>
+    </form>
+
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <p>Czy na pewno chcesz usunąć tę kategorię?</p>
+            <button id="confirmCategoryDelete">Tak</button>
+            <button id="cancelCategoryDelete">Anuluj</button>
+        </div>
+    </div>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <p>Czy na pewno chcesz usunąć ten typ rezerwacji?</p>
+            <button id="confirmBookingDelete">Tak</button>
+            <button id="cancelBookingDelete">Anuluj</button>
+        </div>
+    </div>
+
+</body>
+</html>

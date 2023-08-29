@@ -3,71 +3,26 @@
 
 // Write your JavaScript code.
 
-//async function saveUserBooking() {
-//    const usernameResponse = await fetch("/api/user/get/username");
-//    const user = await usernameResponse.text();
-
-//    const description = (document.getElementById("description")).value;
-//    const beginOfBooking = (document.getElementById("beginOfBooking")).value;
-//    const endOfBooking = (document.getElementById("endOfBooking")).value;
-
-//    const userBooking = {
-//        bookingId: 3,
-//        userName: user,
-//        description: description,
-//        beginOfBooking: new Date(beginOfBooking),
-//        endOfBooking: new Date(endOfBooking)
-//    };
-
-//    try {
-//        const response = await fetch("/api/userbooking/save", {
-//            method: "POST",
-//            headers: {
-//                "Content-Type": "application/json",
-//            },
-//            body: JSON.stringify(userBooking),
-//        });
-
-//        if (response.ok) {
-//            console.log("User booking saved successfully!");
-//            // You can perform additional actions here after the category is saved
-//        } else {
-//            console.error("Failed to save user booking");
-//        }
-//    } catch (error) {
-//        console.error("An error occurred:", error);
-//    }
-
-//}
-
-//async function getAllUserBookings() {
-//    try {
-//        const response = await fetch("/api/userbooking/getAll");
-//        if (response.ok) {
-//            const userBookings = await response.json();
-//            displayUserBookings(userBookings);
-//        } else {
-//            console.error("Error loading categories:", response.statusText);
-//        }
-//    } catch (error) {
-//        console.error("Error fetching categories:", error);
-//    }
-//}
-
-//function displayUserBookings(userBookings) {
-//    const userBookingsList = document.getElementById("userBookingsList");
-//    userBookingsList.innerHTML = "";
-//    userBookings.forEach(userBooking => {
-//        const userBookingItem = document.createElement("div");
-//        userBookingItem.innerText = `ID: ${userBooking.id}, Name: ${userBooking.userName}, Description: ${userBooking.description}, Start: ${userBooking.beginOfBooking}, End: ${userBooking.endOfBooking}`;
-//        userBookingsList.appendChild(userBookingItem);
-//    });
-//}
-
+function showBookingForm() {
+    const bookingForm = document.getElementById("bookingCreationForm");
+    if (bookingForm.style.display === "block")
+        bookingForm.style.display = "none";
+    else
+        bookingForm.style.display = "block";
+}
+function showCategoryForm() {
+    const bookingForm = document.getElementById("categoryCreationForm");
+    if (bookingForm.style.display === "block")
+        bookingForm.style.display = "none";
+    else
+        bookingForm.style.display = "block";
+}
 
 async function saveCategory() {
+    const name = (document.getElementById("categoryName")).value;
+
     const category = {
-        name: "Example Category",
+        name: name,
         bookings: [],
     };
     console.log("started fetch")
@@ -81,7 +36,9 @@ async function saveCategory() {
         });
         if (response.ok) {
             console.log("Category saved successfully!");
-            // You can perform additional actions here after the category is saved
+            document.getElementById("categoryCreationForm").reset();
+            document.getElementById("categoryResult").textContent = "Dodano rezerwację!";
+            document.getElementById("categoryResult").style.color = "green";
         } else {
             console.error("Failed to save category");
         }
@@ -89,8 +46,7 @@ async function saveCategory() {
         console.error("An error occurred:", error);
     }
 }
-async function deleteCategory() {
-    const categoryId = 1001; // Replace with the actual ID of the category you want to delete
+async function deleteCategory(categoryId) {
     try {
         const response = await fetch(`/api/category/delete/${categoryId}`, {
             method: "DELETE",
@@ -136,12 +92,14 @@ async function fetchAllCategories() {
         const response = await fetch("/api/category/getAll");
         if (response.ok) {
             const categories = await response.json();
-            displayCategories(categories);
+            return categories;
         } else {
             console.error("Error loading categories:", response.statusText);
+            return null;
         }
     } catch (error) {
         console.error("Error fetching categories:", error);
+        return null;
     }
 }
 // Display categories in the categoryList element
@@ -150,17 +108,44 @@ function displayCategories(categories) {
     categoryList.innerHTML = "";
     categories.forEach(category => {
         const categoryItem = document.createElement("div");
-        categoryItem.innerText = `ID: ${category.id}, Name: ${category.name}`;
+        categoryItem.id = `category-${category.id}`; // Unikalne id kafelka
+        console.log(categoryItem.id)
+
+        categoryItem.innerHTML = `${category.name}`;
+        categoryItem.style.backgroundColor = "lightgreen";
+        categoryItem.classList.add('kafelka');
+
+        categoryItem.addEventListener("click", () => {
+            const modal = document.getElementById("categoryModal");
+            modal.style.display = "block";
+
+            const confirmButton = document.getElementById("confirmCategoryDelete");
+            const cancelButton = document.getElementById("cancelCategoryDelete");
+
+            confirmButton.addEventListener("click", async () => {
+                // Pobierz ID rezerwacji z atrybutu data-category-id przycisku Usuń
+                const categoryId = categoryItem.id.split("-")[1];
+
+                await deleteCategory(categoryId);
+                modal.style.display = "none";
+                categoryItem.remove(); // Usuń kafelek po usunięciu
+            });
+
+            cancelButton.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+        });
         categoryList.appendChild(categoryItem);
     });
 }
 
 
 async function saveBooking() {
+    const name = (document.getElementById("bookingName")).value;
+    console.log(name);
     const booking = {
-        name: "Example Category",
-        categoryId: 2,
-        userBookings: [],
+        name: name,
+        categoryId: 2
     };
     console.log("started fetch")
     try {
@@ -173,7 +158,9 @@ async function saveBooking() {
         });
         if (response.ok) {
             console.log("Booking saved successfully!");
-            // You can perform additional actions here after the category is saved
+            document.getElementById("bookingCreationForm").reset();
+            document.getElementById("bookingResult").textContent = "Dodano rezerwację!";
+            document.getElementById("bookingResult").style.color = "green";
         } else {
             console.error("Failed to save Booking");
         }
@@ -181,8 +168,7 @@ async function saveBooking() {
         console.error("An error occurred:", error);
     }
 }
-async function deleteBooking() {
-    const bookingId = 1001;
+async function deleteBooking(bookingId) {
     try {
         const response = await fetch(`/api/booking/delete/${bookingId}`, {
             method: "DELETE",
@@ -230,12 +216,14 @@ async function fetchAllBookings() {
         const response = await fetch("/api/booking/getAll");
         if (response.ok) {
             const bookings = await response.json();
-            displayBookings(bookings);
+            return bookings;
         } else {
             console.error("Error loading bookings:", response.statusText);
+            return null;
         }
     } catch (error) {
         console.error("Error fetching bookings:", error);
+        return null;
     }
 }
 function displayBookings(bookings) {
@@ -243,10 +231,33 @@ function displayBookings(bookings) {
     bookingList.innerHTML = "";
     bookings.forEach(booking => {
         const bookingItem = document.createElement("div");
-        bookingItem.innerText = `ID: ${booking.id}, Name: ${booking.name}, Category ID: ${booking.categoryId}`;
+        bookingItem.id = `booking-${booking.id}`; // Unikalne id kafelka
+        console.log(bookingItem.id)
+        bookingItem.innerHTML = `${booking.name}`;
+        bookingItem.classList.add('kafelka');
+        bookingItem.style.backgroundColor = "cyan";
+
+        bookingItem.addEventListener("click", () => {
+            const modal = document.getElementById("bookingModal");
+            modal.style.display = "block";
+
+            const confirmButton = document.getElementById("confirmBookingDelete");
+            const cancelButton = document.getElementById("cancelBookingDelete");
+
+            confirmButton.addEventListener("click", async () => {
+                // Pobierz ID rezerwacji z atrybutu data-category-id przycisku Usuń
+                const bookingId = bookingItem.id.split("-")[1];
+
+                await deleteBooking(bookingId);
+                modal.style.display = "none";
+                bookingItem.remove(); // Usuń kafelek po usunięciu
+            });
+
+            cancelButton.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+        });
+
         bookingList.appendChild(bookingItem);
     });
-    //const fieldNames = Object.keys(bookings[0]);
-    //// Print the field names
-    //console.log("Field names:", fieldNames);
 }

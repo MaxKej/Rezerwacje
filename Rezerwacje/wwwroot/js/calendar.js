@@ -40,8 +40,8 @@ async function getAllUserBookings() {
     }
 }
 
-function showBookingForm() {
-    const bookingForm = document.getElementById("bookingForm");
+function showUserBookingForm() {
+    const bookingForm = document.getElementById("userBookingForm");
     if (bookingForm.style.display === "block")
         bookingForm.style.display = "none";
     else
@@ -144,7 +144,7 @@ async function saveUserBooking() {
 
         if (response.ok) {
             console.log("User booking saved successfully!");
-            document.getElementById("bookingForm").reset();
+            document.getElementById("userBookingForm").reset();
             document.getElementById("result").textContent = "Dodano rezerwację!";
             document.getElementById("result").style.color = "green";
             // You can perform additional actions here after the category is saved

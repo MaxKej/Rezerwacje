@@ -136,9 +136,9 @@
         <div class="column"></div>
     </div>
 
-    <button class="showButton" onclick="showBookingForm()">Dodaj rezerwację</button>
+    <button class="showButton" onclick="showUserBookingForm()">Dodaj rezerwację</button>
 
-    <form id="bookingForm" method="post" style="display: none;">
+    <form id="userBookingForm" method="post" style="display: none;">
         <div class="form-group" id="opis">
             <label for="description">Opis</label>
             <textarea class="form-control" id="description"></textarea>
@@ -152,7 +152,7 @@
             <input type="datetime-local" class="form-control" id="endOfBooking" />
         </div>
 
-        <button type="button" class="saveButton" onclick="saveUserBooking()">Dodaj</button>
+        <button type="button" class="saveButton" onclick="saveUserBooking()">Utwórz</button>
         <p id="result"></p>
     </form>
 

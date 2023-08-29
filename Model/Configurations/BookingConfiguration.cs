@@ -15,7 +15,7 @@ public void Configure(EntityTypeBuilder<Booking> builder)
         {
             builder.HasKey(x=> x.Id);
             builder.Property(x => x.Name).HasMaxLength(200);
-            builder.HasOne<Category>(x => x.Category).WithMany(x => x.Bookings).HasForeignKey(x => x.CategoryId);
+            //builder.HasOne<Category>(x => x.Category).WithMany(x => x.Bookings).HasForeignKey(x => x.CategoryId);
         }
     }
 }

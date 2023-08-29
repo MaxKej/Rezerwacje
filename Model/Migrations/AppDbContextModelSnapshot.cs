@@ -51,15 +51,15 @@ namespace Model.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ea0d130b-10ed-425a-a8f7-889451f0fa4c",
-                            ConcurrencyStamp = "b70e9e53-605c-40e0-a118-2399758de417",
+                            Id = "2ffd8b9b-1969-4503-944b-1ac1766d943f",
+                            ConcurrencyStamp = "93b6bb9e-9a7a-419d-bdc5-b243b3b50491",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "4c2ac540-7f85-4f24-a553-354fbb64782a",
-                            ConcurrencyStamp = "5abd0463-7cb7-4d67-a46e-a934078b7d00",
+                            Id = "105a466c-9914-42e2-9a80-4514bb17b3c8",
+                            ConcurrencyStamp = "6af5783f-eafe-4345-960f-19d0173a96bb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -355,8 +355,6 @@ namespace Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookingId");
-
                     b.ToTable("UserBookings");
                 });
 
@@ -413,27 +411,11 @@ namespace Model.Migrations
 
             modelBuilder.Entity("Model.Entities.Booking", b =>
                 {
-                    b.HasOne("Model.Entities.Category", "Category")
+                    b.HasOne("Model.Entities.Category", null)
                         .WithMany("Bookings")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Model.Entities.UserBooking", b =>
-                {
-                    b.HasOne("Model.Entities.Booking", null)
-                        .WithMany("UserBookings")
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Model.Entities.Booking", b =>
-                {
-                    b.Navigation("UserBookings");
                 });
 
             modelBuilder.Entity("Model.Entities.Category", b =>
