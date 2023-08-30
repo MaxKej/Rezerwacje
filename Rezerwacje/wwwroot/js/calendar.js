@@ -48,7 +48,7 @@ function showUserBookingForm() {
         bookingForm.style.display = "block";
 }
 
-function addUserBookings(userBookings, startOfWeek, endOfWeek, loggedUser) {
+function addUserBookings(startOfWeek, endOfWeek) {
     const dayNames = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
     const columns = document.querySelectorAll(".column");
 
@@ -70,6 +70,8 @@ function addUserBookings(userBookings, startOfWeek, endOfWeek, loggedUser) {
 
         if (bookingDate_s >= startOfWeek && bookingDate_e <= endOfWeek) {
 
+            let bookingName = findBooking(booking.bookingId);
+            console.log(bookingName);
             const dayName = dayNames[bookingDate_s.getDay()];
             const columnIndex = bookingDate_s.getDay();
 
@@ -92,7 +94,7 @@ function addUserBookings(userBookings, startOfWeek, endOfWeek, loggedUser) {
 
             const tooltipText = document.createElement("p");
             tooltipText.classList.add("tooltip-text");
-            tooltipText.textContent = booking.description;
+            tooltipText.innerHTML = `${booking.description} <br> ${bookingName}`;
 
             bookingDiv.appendChild(tooltipText);
 
@@ -102,12 +104,30 @@ function addUserBookings(userBookings, startOfWeek, endOfWeek, loggedUser) {
 }
 
 
-async function saveUserBooking() {
-    const user = await userData();
+function findBooking(targetId) {
+    let foundElement = null;
 
+    bookings.forEach(function (element) {
+        if (element.id === targetId) {
+            foundElement = element;
+        }
+    });
+
+    if (foundElement) {
+        return foundElement.name;
+    } else {
+        return null;
+    }
+}
+
+
+async function saveUserBooking() {
     const description = (document.getElementById("description")).value;
     const beginOfBooking = (document.getElementById("beginOfBooking")).value;
     const endOfBooking = (document.getElementById("endOfBooking")).value;
+    const selectElement = document.getElementById('opcje');
+    const selectedId = selectElement.value;
+    console.log(selectedId);
 
     if (beginOfBooking > endOfBooking) {
         document.getElementById("result").textContent = "Druga data nie jest późniejsza.";
@@ -126,8 +146,8 @@ async function saveUserBooking() {
     }
 
     const userBooking = {
-        bookingId: 3,
-        userName: user,
+        bookingId: selectedId,
+        userName: loggedUser,
         description: description,
         beginOfBooking: beginOfBooking,
         endOfBooking: endOfBooking

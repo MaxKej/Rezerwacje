@@ -84,7 +84,7 @@
 
         .booking:hover {
             z-index: 2; /* Większy z-index po najechaniu */
-            height: 100px; /* Większa wysokość po najechaniu */
+            height: 140px; /* Większa wysokość po najechaniu */
         }
 
         .booking:hover .tooltip-text {
@@ -140,6 +140,10 @@
 
     <form id="userBookingForm" method="post" style="display: none;">
         <div class="form-group" id="opis">
+            <label for="opcje">Typ rezerwacji</label>
+            <select class="form-control" id="opcje"></select>
+        </div>
+        <div class="form-group" id="opis">
             <label for="description">Opis</label>
             <textarea class="form-control" id="description"></textarea>
         </div>
@@ -159,22 +163,38 @@
 
 
     <script>
+        let bookings;
         document.addEventListener("DOMContentLoaded", async (event) => {
             userBookings = await getAllUserBookings();
+            bookings = await fetchAllBookings();
+            console.log(bookings);
+            fillSelect(bookings);
             loggedUser = await userData();
             startDate = getStartOfWeek(date_today, startDayOfWeek);
             endDate = new Date(startDate);
             endDate.setDate(startDate.getDate() + 6);
 
             loadCurrentWeek(startDate, endDate, date_today);
-            addUserBookings(userBookings, startDate, endDate, loggedUser);
+            addUserBookings(startDate, endDate);
         });
+
+        function fillSelect(bookings)
+        {
+            const selectElement = document.getElementById('opcje');
+
+            bookings.forEach(function (item) {
+                var option = document.createElement('option');
+                option.value = item.id;
+                option.text = item.name;
+                selectElement.appendChild(option);
+            });
+        }
 
         document.getElementById("arrow_left").addEventListener("click", function () {
             date_today.setDate(date_today.getDate() - 7);
             updateWeekDates(date_today, startDayOfWeek);
             clearCalendar();
-            addUserBookings(userBookings, startDate, endDate);
+            addUserBookings(startDate, endDate);
             updateDisplayedDates();
         });
 
@@ -182,7 +202,7 @@
             date_today.setDate(date_today.getDate() + 7);
             updateWeekDates(date_today, startDayOfWeek);
             clearCalendar();
-            addUserBookings(userBookings, startDate, endDate);
+            addUserBookings(startDate, endDate);
             updateDisplayedDates();
         });
 
