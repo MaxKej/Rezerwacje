@@ -40,6 +40,15 @@ async function getAllUserBookings() {
     }
 }
 
+roomSelect.addEventListener("change", handleOptionChange);
+
+function handleOptionChange() {
+    selectedRoom = roomSelect.value;
+    clearCalendar();
+    addUserBookings();
+    console.log(selectedRoom);
+}
+
 function showUserBookingForm() {
     const bookingForm = document.getElementById("userBookingForm");
     if (bookingForm.style.display === "block")
@@ -48,7 +57,7 @@ function showUserBookingForm() {
         bookingForm.style.display = "block";
 }
 
-function addUserBookings(startOfWeek, endOfWeek) {
+function addUserBookings() {
     const dayNames = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
     const columns = document.querySelectorAll(".column");
 
@@ -68,10 +77,15 @@ function addUserBookings(startOfWeek, endOfWeek) {
         const bookingDate_s = new Date(booking.beginOfBooking);
         const bookingDate_e = new Date(booking.endOfBooking);
 
-        if (bookingDate_s >= startOfWeek && bookingDate_e <= endOfWeek) {
+        if (bookingDate_s >= startDate && bookingDate_e <= endDate) {
+
+            const lines = booking.description.split('\n');
+            const room = lines[lines.length - 1];
+
+            if (room != selectedRoom)
+                return;
 
             let bookingName = findBooking(booking.bookingId);
-            console.log(bookingName);
             const dayName = dayNames[bookingDate_s.getDay()];
             const columnIndex = bookingDate_s.getDay();
 
@@ -94,7 +108,7 @@ function addUserBookings(startOfWeek, endOfWeek) {
 
             const tooltipText = document.createElement("p");
             tooltipText.classList.add("tooltip-text");
-            tooltipText.innerHTML = `${booking.description} <br> ${bookingName}`;
+            tooltipText.textContent = booking.description + "\n" + bookingName;
 
             bookingDiv.appendChild(tooltipText);
 
@@ -127,14 +141,13 @@ async function saveUserBooking() {
     const endOfBooking = (document.getElementById("endOfBooking")).value;
     const selectElement = document.getElementById('opcje');
     const selectedId = selectElement.value;
-    console.log(selectedId);
 
     if (beginOfBooking > endOfBooking) {
         document.getElementById("result").textContent = "Druga data nie jest późniejsza.";
         return;
     }
 
-    collision = await Collision(new Date(beginOfBooking), new Date(endOfBooking));
+    collision = await Collision(new Date(beginOfBooking), new Date(endOfBooking), selectedRoom);
     if (collision) {
         document.getElementById("result").textContent = "Termin niedostępny!";
         return;
@@ -145,10 +158,12 @@ async function saveUserBooking() {
         return;
     }
 
+    let opis = description + "\n" + selectedRoom;
+
     const userBooking = {
         bookingId: selectedId,
         userName: loggedUser,
-        description: description,
+        description: opis,
         beginOfBooking: beginOfBooking,
         endOfBooking: endOfBooking
     };
@@ -177,15 +192,18 @@ async function saveUserBooking() {
 
 }
 
-async function Collision(beginOfBooking, endOfBooking) {
+async function Collision(beginOfBooking, endOfBooking, room) {
     const existingBookings = await getAllUserBookings();
 
     const isFullyContained = existingBookings.some(booking => {
         const existingBegin = new Date(booking.beginOfBooking);
         const existingEnd = new Date(booking.endOfBooking);
 
+        const lines2 = booking.description.split('\n');
+        const room2 = lines2[lines2.length - 1];
+
         return (
-            existingBegin >= beginOfBooking && existingEnd <= endOfBooking
+            existingBegin >= beginOfBooking && existingEnd <= endOfBooking && room === room2
         );
     });
 
@@ -195,7 +213,10 @@ async function Collision(beginOfBooking, endOfBooking) {
     const isCollisionAtStart = existingBookings.some(booking => {
         const existingBegin = new Date(booking.beginOfBooking);
         const existingEnd = new Date(booking.endOfBooking);
-        return beginOfBooking >= existingBegin && beginOfBooking < existingEnd;
+
+        const lines2 = booking.description.split('\n');
+        const room2 = lines2[lines2.length - 1];
+        return beginOfBooking >= existingBegin && beginOfBooking < existingEnd && room === room2;
     });
 
     if (isCollisionAtStart)
@@ -204,7 +225,11 @@ async function Collision(beginOfBooking, endOfBooking) {
     const isCollisionAtEnd = existingBookings.some(booking => {
         const existingBegin = new Date(booking.beginOfBooking);
         const existingEnd = new Date(booking.endOfBooking);
-        return endOfBooking > existingBegin && endOfBooking <= existingEnd;
+
+        const lines2 = booking.description.split('\n');
+        const room2 = lines2[lines2.length - 1];
+
+        return endOfBooking > existingBegin && endOfBooking <= existingEnd && room === room2;
     });
 
     if (isCollisionAtEnd)
